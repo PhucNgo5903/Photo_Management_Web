@@ -11,7 +11,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
     <style>
+
+        body {
+            background-image: url('https://img.freepik.com/free-vector/blank-blue-halftone-background_53876-114592.jpg');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+        }
+
         .image-thumbail {
             height: 200px;
             object-fit: cover;
@@ -21,17 +30,36 @@
             text-decoration: none;
             color: black;
         }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .intro-message {
+            text-align: center;
+            font-size: 1.5em;
+        }
     </style>
 </head>
 
 <body class="m-5">
+    {% if request.user.is_authenticated %}
 
+        <div class="welcome-message" >
+            <p> Welcome back {{ request.user }}!</p>
+          
+        </div>
+
+        <div class="intro-message">
+            <p>Ready to share your memmories? </p>
+
+        </div>
+    {% endif %}
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                {% if request.user.is_authenticated %}
-                <p>Hello {{request.user}}</p>
-                {% endif %}
                 <div class="card">
                     <div class="card-header">
                         Categories
@@ -41,16 +69,28 @@
                             <a href="{% url 'gallery' %}">All</a>
                         </li>
                         {% for category in categories %}
-                        <li class=" list-group-item">
-                            <a href="{% url 'gallery' %}?category={{category.name}}">
-                                {{category.name}}
-                            </a>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>
+                                <a href="{% url 'gallery' %}?category={{category.name}}" class="me-2">
+                                    {{category.name}}
+                                </a>
+                            </span>
+                            <form method="post" action="{% url 'delete_category' category.id %}" onsubmit="return confirmDelete();">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </li>
+                        
+                        <script>
+                            function confirmDelete() {
+                                return confirm("Are you sure that you want to delete this category?");
+                            }
+                        </script>
                         {% endfor %}
 
 
-                        <a href="{% url 'add' %}" class="btn btn-dark btn-block btn-sm m-1">Add Photo</a>
-                        <a href="{% url 'logout' %}" class="btn btn-dark btn-block btn-sm m-1">Logout</a>
+                        <a href="{% url 'add' %}" class="btn btn-primary btn-block btn-sm m-1">Add Photo</a>
+                        <a href="{% url 'logout' %}" class="btn btn-primary btn-block btn-sm m-1">Logout</a>
                     </ul>
                 </div>
 
@@ -66,7 +106,7 @@
                             <div class="card-body">
                                 <small>Category: {{photo.category.name}}</small>
                             </div>
-                            <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
+                            <a href="{% url 'photo' photo.id %}" class="btn btn-outline-primary btn-sm m-1">View</a>
                         </div>
                     </div>
                     {% empty %}
@@ -84,6 +124,7 @@
             </div>
         </div>
     </div>
+
 
 </body>
 
