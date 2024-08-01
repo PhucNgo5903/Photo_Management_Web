@@ -43,6 +43,7 @@ Follow these steps to get a local copy of the project up and running:
     pip install django-crispy-forms
     pip install crispy-bootstrap4
     pip install Pillow
+    pip install django-storages
     ```
 
 4. **Run database migrations:**
