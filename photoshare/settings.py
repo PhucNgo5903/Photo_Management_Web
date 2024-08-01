@@ -40,8 +40,12 @@ INSTALLED_APPS = [
 
     'photos.apps.PhotosConfig',
 
+    'crispy_forms',
+    'crispy_bootstrap4',
     'storages',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

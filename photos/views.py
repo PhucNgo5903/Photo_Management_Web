@@ -1,10 +1,9 @@
-
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Category, Photo
+from .models import Category, Photo, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UpdateUserForm
 
 from django.contrib import messages
 # Create your views here.
@@ -73,6 +72,25 @@ def gallery(request):
     categories = Category.objects.filter(user=user)
     context = {'categories': categories, 'photos': photos}
     return render(request, 'photos/gallery.html', context)
+
+
+@login_required(login_url='login')
+def profile_management(request):
+    user = request.user
+
+    user_form = UpdateUserForm(instance=user)
+
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=user)
+
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('gallery')
+
+    context = {
+        'user_form': user_form,
+    }
+    return render(request, 'photos/profile_management.html', context)
 
 
 #- View photos

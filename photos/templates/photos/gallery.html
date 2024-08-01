@@ -10,10 +10,8 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
     <style>
-
         body {
             background-image: url('https://img.freepik.com/free-vector/blank-blue-halftone-background_53876-114592.jpg');
             background-size: cover; 
@@ -30,34 +28,54 @@
             text-decoration: none;
             color: black;
         }
-        .welcome-message {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 3em;
-            font-weight: bold;
-        }
+
+
 
         .intro-message {
             text-align: center;
-            font-size: 1.5em;
+            font-size: 2.5em;
+            font-weight: bold;
         }
+
+        .btn-group-custom {
+            display: flex;
+            gap: 10px;
+            
+            margin-right: -90px;
+        }
+
+     
     </style>
 </head>
 
 <body class="m-5">
-    {% if request.user.is_authenticated %}
-
-        <div class="welcome-message" >
-            <p> Welcome back {{ request.user }}!</p>
-          
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            
+            <a class="navbar-brand" href="#">Welcome {{ request.user }}!</a>
+            
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    {% if request.user.is_authenticated %}
+                    <div class="btn-group btn-group-custom">
+                        <a href="{% url 'profile_management' %}" class="btn btn-outline-primary">Profile</a>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+                    </div>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
+    </nav>
 
+    <!-- Main content -->
+    <div class="container mt-5 pt-5">
+        {% if request.user.is_authenticated %}
         <div class="intro-message">
-            <p>Ready to share your memmories? </p>
-
+            <p>Ready to share your memories?</p>
         </div>
-    {% endif %}
-    <div class="container">
+        {% endif %}
+
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
@@ -80,29 +98,17 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </li>
-                        
-                        <script>
-                            function confirmDelete() {
-                                return confirm("Are you sure that you want to delete this category?");
-                            }
-                        </script>
                         {% endfor %}
-
-
-                        <a href="{% url 'add' %}" class="btn btn-primary btn-block btn-sm m-1">Add Photo</a>
-                        <a href="{% url 'logout' %}" class="btn btn-primary btn-block btn-sm m-1">Logout</a>
                     </ul>
+                    <a href="{% url 'add' %}" class="btn btn-primary btn-block btn-sm m-1">Add Photo</a>
                 </div>
-
             </div>
             <div class="col-md-9">
                 <div class="row">
-
                     {% for photo in photos %}
                     <div class="col-md-4">
                         <div class="card my-2">
                             <img class="image-thumbail" src="{{photo.image.url}}" alt="Card image cap">
-
                             <div class="card-body">
                                 <small>Category: {{photo.category.name}}</small>
                             </div>
@@ -112,20 +118,21 @@
                     {% empty %}
                     <h3>No photos...</h3>
                     {% endfor %}
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9z2tFjR0M39u4Vu4BIDiWlB2mtD6xP5TVHkkFQyl+U18A2EcrF5" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-cq4oNeySH7KeO9c3hO5ML6M6f6GgEoKMg9xJ3fsTTDz9xhGeqI8fS64w5yF6R52i8" crossorigin="anonymous"></script>
 
+    <!-- JavaScript to confirm delete -->
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure that you want to delete this category?");
+        }
+    </script>
 </body>
 
 </html>

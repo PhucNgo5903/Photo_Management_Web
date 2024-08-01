@@ -19,6 +19,11 @@ urlpatterns = [
 #- Gallery
     path('gallery/', views.gallery, name='gallery'),
 
+#- Profile management 
+
+    path('profile_management', views.profile_management, name ="profile_management"),
+
+
 #- View photos
     path('photo/<str:pk>/', views.viewPhoto, name='photo'),
 

@@ -29,3 +29,10 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class Profile(models.Model):
+
+    profile_pic = models.ImageField(null = True, blank = True, default='Default.jpg')
+
+    user = models.ForeignKey(User, max_length=10, on_delete=models.CASCADE, null = True)
