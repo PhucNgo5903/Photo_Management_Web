@@ -81,12 +81,11 @@ Registration page:
 Login page:
 ![image](https://github.com/user-attachments/assets/6640a046-3d4a-4a31-9806-11a8438124dd)
 
-Profile:
-![image](https://github.com/user-attachments/assets/76f606e6-916e-4186-8b76-0577bbf5a169)
-
-
 Gallery:
 ![image](https://github.com/user-attachments/assets/ed1c31ca-28ac-4dbf-bcd2-0ee8ecb310c5)
+
+Profile:
+![image](https://github.com/user-attachments/assets/76f606e6-916e-4186-8b76-0577bbf5a169)
 
 ![image](https://github.com/user-attachments/assets/895ff5e2-2aa0-4dcc-84a2-e43fad06c199)
 
