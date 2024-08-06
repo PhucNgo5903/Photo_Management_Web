@@ -68,7 +68,7 @@ Once the server is running, open your web browser and navigate to `http://127.0.
 To run the tests, use the following command:
 ```bash
 python manage.py test
-
+```
 Thank you for checking out PhotoShare! 
 
 ## DEMO:
